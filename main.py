@@ -19,7 +19,7 @@ from list_portfolios import IntxClient, ListPortfoliosRequest
 
 def main():
     credentials = Credentials.from_env("INTX_CREDENTIALS")
-    intx_client = IntxClient(credentials)
+    intx_client = IntxClient(credentials, base_url="https://api-n5e1.coinbase.com/api/v1")
 
     request = ListPortfoliosRequest()
     try:
