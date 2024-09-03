@@ -15,10 +15,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from get_balance_for_portfolio_asset import IntxClient, GetBalanceForPortfolioAssetRequest, Credentials
-from test_constants import (
-    BASE_URL, CREDENTIALS_ENV, DUMMY_PORTFOLIO_ID,
-    ASSET_NAME, BALANCE, ERROR_MESSAGE
-)
+from test_constants import BASE_URL
 
 
 class TestGetBalanceForPortfolioAsset(unittest.TestCase):
@@ -27,37 +24,37 @@ class TestGetBalanceForPortfolioAsset(unittest.TestCase):
     def test_get_balance_for_portfolio_asset_success(self, MockClient):
         mock_response = MagicMock()
         mock_response.json.return_value = {
-            "portfolio_id": DUMMY_PORTFOLIO_ID,
-            "asset": ASSET_NAME,
-            "balance": BALANCE
+            "portfolio_id": "dummy_portfolio_id",
+            "asset": "BTC",
+            "balance": "1.5"
         }
         MockClient.return_value.request.return_value = mock_response
 
-        credentials = Credentials.from_env(CREDENTIALS_ENV)
+        credentials = Credentials.from_env("INTX_CREDENTIALS")
         intx_client = IntxClient(credentials, base_url=BASE_URL)
 
-        request = GetBalanceForPortfolioAssetRequest(portfolio=DUMMY_PORTFOLIO_ID, asset=ASSET_NAME)
+        request = GetBalanceForPortfolioAssetRequest(portfolio="dummy_portfolio_id", asset="BTC")
         response = intx_client.get_balance_for_portfolio_asset(request)
 
-        self.assertEqual(response.response['portfolio_id'], DUMMY_PORTFOLIO_ID)
-        self.assertEqual(response.response['asset'], ASSET_NAME)
-        self.assertEqual(response.response['balance'], BALANCE)
+        self.assertEqual(response.response['portfolio_id'], "dummy_portfolio_id")
+        self.assertEqual(response.response['asset'], "BTC")
+        self.assertEqual(response.response['balance'], "1.5")
 
     @patch('get_balance_for_portfolio_asset.Client')
     def test_get_balance_for_portfolio_asset_failure(self, MockClient):
         mock_response = MagicMock()
-        mock_response.json.side_effect = Exception(ERROR_MESSAGE)
+        mock_response.json.side_effect = Exception("API error")
 
         MockClient.return_value.request.side_effect = mock_response.json.side_effect
 
-        credentials = Credentials.from_env(CREDENTIALS_ENV)
-        intx_client = IntxClient(credentials, base_url=BASE_URL)
+        credentials = Credentials.from_env("INTX_CREDENTIALS")
+        intx_client = IntxClient(credentials, base_url="https://api-n5e1.coinbase.com/api/v1")
 
-        request = GetBalanceForPortfolioAssetRequest(portfolio=DUMMY_PORTFOLIO_ID, asset=ASSET_NAME)
+        request = GetBalanceForPortfolioAssetRequest(portfolio="dummy_portfolio_id", asset="BTC")
         with self.assertRaises(Exception) as context:
             intx_client.get_balance_for_portfolio_asset(request)
 
-        self.assertTrue(ERROR_MESSAGE in str(context.exception))
+        self.assertTrue('API error' in str(context.exception))
 
 
 if __name__ == "__main__":
