@@ -54,7 +54,7 @@ The JSON format expected for `INTX_CREDENTIALS` is:
 Coinbase INTX API credentials can be created in the INTX web console under Settings -> APIs. 
 
 ### Making API Calls
-Once the client is initialized, make the desired call. For example, to [list portfolios](https://github.com/coinbase-samples/intx-sdk-py/blob/main/list_portfolios.py),
+Once the client is initialized, make the desired call. For example, to [list portfolios](list_portfolios.py),
 pass in the request object, check for an error, and if nil, process the response.
 
 
@@ -75,3 +75,11 @@ except Exception as e:
 
 ### Supported Versions
 The SDK is tested and confirmed to work with Python version 3.8 and newer.
+
+### Specifying Binaries (Version 0.1.0)
+To use version 0.1.0 of the INTX Python SDK, you can install the specific binary using pip:
+```
+pip install prime-sdk-py==0.1.0
+```
+Ensure that you are using the correct version to match the SDK capabilities and features described in this document.
+
