@@ -14,7 +14,7 @@
 
 import unittest
 from unittest.mock import patch, MagicMock
-from create_portfolio import IntxClient, CreatePortfolioRequest, Credentials
+from intx_sdk.create_portfolio import IntxClient, CreatePortfolioRequest, Credentials
 from test_constants import BASE_URL
 
 

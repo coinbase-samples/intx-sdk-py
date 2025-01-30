@@ -14,7 +14,7 @@
 
 import unittest
 from unittest.mock import patch, MagicMock
-from get_asset_details import IntxClient, GetAssetDetailsRequest, Credentials
+from intx_sdk.get_asset_details import IntxClient, GetAssetDetailsRequest, Credentials
 from test_constants import BASE_URL
 
 

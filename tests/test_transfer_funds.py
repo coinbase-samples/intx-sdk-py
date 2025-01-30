@@ -14,7 +14,7 @@
 
 import unittest
 from unittest.mock import patch, MagicMock
-from transfer_funds import IntxClient, TransferFundsRequest, Credentials
+from intx_sdk.transfer_funds import IntxClient, TransferFundsRequest, Credentials
 from test_constants import BASE_URL
 
 
@@ -26,8 +26,8 @@ class TestTransferFunds(unittest.TestCase):
         mock_response.json.return_value = {
             "transaction_id": "dummy_transaction_id",
             "status": "COMPLETED",
-            "from_portfolio": "portfolio_1",
-            "to_portfolio": "portfolio_2",
+            "from": "portfolio_1",
+            "to": "portfolio_2",
             "asset": "BTC",
             "amount": "0.5"
         }
@@ -46,8 +46,8 @@ class TestTransferFunds(unittest.TestCase):
 
         self.assertEqual(response.response['transaction_id'], "dummy_transaction_id")
         self.assertEqual(response.response['status'], "COMPLETED")
-        self.assertEqual(response.response['from_portfolio'], "portfolio_1")
-        self.assertEqual(response.response['to_portfolio'], "portfolio_2")
+        self.assertEqual(response.response['from'], "portfolio_1")
+        self.assertEqual(response.response['to'], "portfolio_2")
         self.assertEqual(response.response['asset'], "BTC")
         self.assertEqual(response.response['amount'], "0.5")
 
